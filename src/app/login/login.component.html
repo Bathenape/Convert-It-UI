@@ -1,0 +1,12 @@
+<div>
+  <img src="assets/images/CDClogo.jpg" class="login-image" width="300">
+</div>
+<div class="login-page">
+  <div class="form">
+    <form class="login-form">
+      <input type="text" name="username" [ngModel]='uname' (ngModelChange)="unameChange($event)" placeholder="username"/>
+      <input type="password" name="password" [ngModel]='pass'  (ngModelChange)="passChange($event)" placeholder="password"/>
+      <button type=button (click)="login()">login</button>
+    </form>
+  </div>
+</div>

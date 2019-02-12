@@ -1,0 +1,17 @@
+.image-block {
+    position: relative;
+}
+
+.landing-image {
+    position: absolute;
+    top: 425px;
+    right: 0px;
+}
+
+.welcome-text {
+    font: size 25px;
+}
+
+.database-text {
+    font-size:15px;
+}
