@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.uname != null && this.pass != null) {
-      console.log('yeet');
+      console.log('testing git');
       this.router.navigate(['/landingpage']);
     }
   }
