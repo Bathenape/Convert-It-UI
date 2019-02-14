@@ -21,7 +21,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/assets/images/CDClogo.jpg"
+              "src/assets/images/CDClogo.jpg",
+              "src/assests/JSONObject.json"
             ],
             "styles": [
               "src/styles.css"

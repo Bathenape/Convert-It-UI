@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-records-table',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecordsTableComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
+
+  columndefs = [
+    {headername: 'message', field: 'message'}
+  ];
+
+  rowdata;
 
   ngOnInit() {
+    this.http.get('assets/JSONObject.json').subscribe(data => {
+      console.log(data.valueOf());
+      this.rowdata = data.valueOf();
+    })
   }
 
 }

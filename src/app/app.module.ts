@@ -9,6 +9,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ViewRecordsComponent } from './view-records/view-records.component';
 import { RecordsTableComponent } from './records-table/records-table.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { HttpClientModule } from  '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { RecordsTableComponent } from './records-table/records-table.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AgGridModule.withComponents(null),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
