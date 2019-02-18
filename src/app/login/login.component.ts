@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       email: this.uname,
       password: this.pass
     }
-    this.http.post('http://localhost:8080/users/authentication', data, { headers: {'Content-Type':  'application/json'}}).subscribe(res => {
+    this.http.post('http://localhost:8080/users/authentication', data, { headers: {'Content-Type':  'application/json'}, responseType: 'text' as 'json'}).subscribe(res => {
       if (res['statusText'] == 'OK') {
         this.router.navigateByUrl('/landingpage');
       } else {
