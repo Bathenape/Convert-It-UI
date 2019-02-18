@@ -27,20 +27,22 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     'Content-Type':  'application/json'
-    //   })
-    // };
-    // this.http.post('', {
-    //   httpOptions,
-    //   email: this.uname,
-    //   password: this.pass
-    // }).subscribe(res => {
-    //   if (res['status'] == 'OK') {
-    //     this.router.navigateByUrl('/landingpage');
-    //   }
-    // })
-    this.router.navigateByUrl('/landingpage');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    this.http.post('http://localhost:27017/users/authentication', {
+      httpOptions,
+      email: this.uname,
+      password: this.pass
+    }).subscribe(res => {
+      if (res['status'] == 'OK') {
+        this.router.navigateByUrl('/landingpage');
+      } else {
+        alert("Incorrect username or password")
+      }
+    })
+    //this.router.navigateByUrl('/landingpage');
   };
 }
