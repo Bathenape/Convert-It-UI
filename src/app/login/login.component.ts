@@ -27,17 +27,12 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
-    this.http.post('http://localhost:27017/users/authentication', {
-      httpOptions,
+    let data = {
       email: this.uname,
       password: this.pass
-    }).subscribe(res => {
-      if (res['status'] == 'OK') {
+    }
+    this.http.post('http://localhost:8080/users/authentication', data, { headers: {'Content-Type':  'application/json'}}).subscribe(res => {
+      if (res['statusText'] == 'OK') {
         this.router.navigateByUrl('/landingpage');
       } else {
         alert("Incorrect username or password")
