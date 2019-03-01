@@ -32,11 +32,11 @@ export class LoginComponent implements OnInit {
       password: this.pass
     }
     this.http.post('http://localhost:8080/users/authentication', data, { headers: {'Content-Type':  'application/json'}, responseType: 'text' as 'json'}).subscribe(res => {
-      if (res['statusText'] == 'OK') {
+      if (res == 'Get user successfully') {
         this.router.navigateByUrl('/landingpage');
       } else {
         alert("Incorrect username or password")
-      }
+      } 
     })
     //this.router.navigateByUrl('/landingpage');
   };
