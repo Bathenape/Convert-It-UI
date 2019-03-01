@@ -11,6 +11,7 @@ import { ViewRecordsComponent } from './view-records/view-records.component';
 import { RecordsTableComponent } from './records-table/records-table.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from  '@angular/common/http';
+import { SettingsPageComponent } from './settings-page/settings-page.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HttpClientModule } from  '@angular/common/http';
     LandingPageComponent,
     NavbarComponent,
     ViewRecordsComponent,
-    RecordsTableComponent
+    RecordsTableComponent,
+    SettingsPageComponent
   ],
   imports: [
     BrowserModule,

@@ -11,9 +11,9 @@ export class RecordsTableComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   columndefs = [
-    {headername: 'HD-3', field: "HD3"},
-    {headername: 'TS-1', field: "TS1"},
-    {headername: 'MSH-17', field: "MSH17"}
+    {headername: 'HD-3', field: "HD3", filter: "agTextColumnFilter"},
+    {headername: 'TS-1', field: "TS1", filter: "agTextColumnFilter"},
+    {headername: 'MSH-17', field: "MSH17", filter: "agTextColumnFilter"}
   ];
 
   rowdata;
