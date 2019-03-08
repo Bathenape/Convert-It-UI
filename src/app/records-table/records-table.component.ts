@@ -10,11 +10,26 @@ export class RecordsTableComponent implements OnInit {
 
   constructor(private http: HttpClient) {}
 
-  columndefs = [
-    {headername: 'HD-3', field: "HD3", filter: "agTextColumnFilter"},
-    {headername: 'TS-1', field: "TS1", filter: "agTextColumnFilter"},
-    {headername: 'MSH-17', field: "MSH17", filter: "agTextColumnFilter"}
-  ];
+  gridOptions = {
+    defaultColDef: {
+      filter: true
+    },
+
+    pagination: true,
+
+    paginationPageSize: 100,
+
+  }
+
+  columnDefs = [
+    {headerName: "ID", width: 50,
+        valueGetter: 'node.id',
+        cellRenderer: 'loadingRenderer'
+    },
+    {headername: 'HD-3', field: "HD3", sortable: true},
+    {headername: 'TS-1', field: "TS1", sortable: true},
+    {headername: 'MSH-17', field: "MSH17", sortable: true}
+  ]
 
   rowdata;
 
@@ -29,5 +44,7 @@ export class RecordsTableComponent implements OnInit {
     })
   }
 
-
+  public changeSettings(pageNumber: number) {
+    this.gridOptions.paginationPageSize = pageNumber;
+  }
 }

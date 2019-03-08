@@ -1,25 +1,8 @@
+<app-navbar></app-navbar>
 <div>
   <form class="settings-form">
-    <input type="text" name="max" [ngModel]='maxRecords' (ngModelChange)="maxRecordsChange($event)" placeholder="Max Records Displayed"/>
-    <input type="password" name="perPage" [ngModel]='recordsPerPage'  (ngModelChange)="perPageChange($event)" placeholder="Number Of Records Per Page"/>
-    <P>Include Incomplete Results?</P>
-      <div>
-        <input type="checkbox" id="yes" name="yesBox">
-        <label ofr="yesBox">Yes</label>
-      </div>
-      <div>
-        <input type="checkbox" id="no" name="noBox">
-        <label ofr="noBox">No</label>
-      </div>
-      <P>Include row numbers?</P>
-      <div>
-        <input type="checkbox" id="yes" name="yesBox">
-        <label ofr="yesBox">Yes</label>
-      </div>
-      <div>
-        <input type="checkbox" id="no" name="noBox">
-        <label ofr="noBox">No</label>
-      </div>
-    <button type=button (click)="updateSettings()">Update Settings</button>
+    <input type="number" name="max" [ngModel]='maxRecords' (ngModelChange)="maxRecordsChange($event)" placeholder="Max Records Displayed"/>
+    <input type="number" name="perPage" [ngModel]='recordsPerPage'  (ngModelChange)="perPageChange($event)" placeholder="Number Of Records Per Page"/>
+    <button class="submitButton" type=button (click)="updateSettings()">Update Settings</button>
   </form>
 </div>
