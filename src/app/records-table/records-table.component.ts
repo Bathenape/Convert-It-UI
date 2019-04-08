@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { saveAs } from 'file-saver';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-records-table',
@@ -8,34 +10,36 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RecordsTableComponent implements OnInit {
 
-  constructor(private http: HttpClient) {}
-
-  gridOptions = {
-    defaultColDef: {
-      filter: true
-    },
-
-    pagination: true,
-
-    paginationPageSize: 100,
-
+  constructor(private http: HttpClient) {
+    this.columnDefs = [
+      {headerName: "ID", width: 50,
+          valueGetter: 'node.id',
+          cellRenderer: 'loadingRenderer'
+      },
+      {headername: 'HD-3', field: "HD3", sortable: true},
+      {headername: 'TS-1', field: "TS1", sortable: true},
+      {headername: 'MSH-17', field: "MSH17", sortable: true}
+    ]
+    this.defaultColDef = { sortable: true }
   }
 
-  columnDefs = [
-    {headerName: "ID", width: 50,
-        valueGetter: 'node.id',
-        cellRenderer: 'loadingRenderer'
-    },
-    {headername: 'HD-3', field: "HD3", sortable: true},
-    {headername: 'TS-1', field: "TS1", sortable: true},
-    {headername: 'MSH-17', field: "MSH17", sortable: true}
-  ]
+  private rowdata;
+  private dataToSave;
 
-  rowdata;
+  private gridApi;
+  private gridColumnApi;
+  private defaultColDef;
+  private columnDefs;
+
+  gridOptions = {
+    pagination: true,
+    paginationPageSize: 100
+  }
 
   ngOnInit() {
     this.http.get('assets/JSONObject.json').subscribe(data => {
-      console.log(data['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-3"]["HD-3"]);
+      this.dataToSave = data['message']['HL7'];
+      console.log(data);
       this.rowdata = [
         {HD3: data['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-3"]["HD-3"], 
         TS1: data['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-7"]["TS-1"],
@@ -44,7 +48,42 @@ export class RecordsTableComponent implements OnInit {
     })
   }
 
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+
+    params.api.expandAll();
+  }
+
   public changeSettings(pageNumber: number) {
     this.gridOptions.paginationPageSize = pageNumber;
+  }
+
+  public download() {
+    var file = new File([this.dataToSave], "HL7.txt");
+    saveAs(file);
+  }
+
+  onPrint() {
+    var gridApi = this.gridApi;
+    this.setPrinterFriendly(gridApi);
+    setTimeout(function() {
+      print();
+      this.setNormal(gridApi);
+    }, 2000);
+  }
+
+  private setPrinterFriendly(api) {
+    /* var eGridDiv = document.querySelector("table.my-grid");
+    eGridDiv.style.width = "";
+    eGridDiv.style.height = ""; */
+    api.setDomLayout("print");
+  }
+
+  private setNormal(api) {
+    /* var eGridDiv = document.querySelector(".my-grid");
+    eGridDiv.style.width = "600px";
+    eGridDiv.style.height = "200px"; */
+    api.setDomLayout(null);
   }
 }
