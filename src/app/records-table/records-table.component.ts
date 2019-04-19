@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { saveAs } from 'file-saver';
 import { Observable } from 'rxjs';
+import { MongoService } from '../mongo.service';
+import { hl7 } from '../models/hl7.model'
 
 @Component({
   selector: 'app-records-table',
@@ -10,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class RecordsTableComponent implements OnInit {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private mongoService: MongoService) {
     this.columnDefs = [
       {headerName: "ID", width: 50,
           valueGetter: 'node.id',
@@ -37,15 +39,20 @@ export class RecordsTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get('assets/JSONObject.json').subscribe(data => {
-      this.dataToSave = data['message']['HL7'];
-      console.log(data);
-      this.rowdata = [
-        {HD3: data['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-3"]["HD-3"], 
-        TS1: data['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-7"]["TS-1"],
-        MSH17: data['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-17"]},
-      ]
-    })
+    this.mongoService.getAllRecords().subscribe(
+      data => {
+        console.log(data);
+      }
+    )
+    this.mongoService.getLocalData().subscribe(
+      data => {
+        this.rowdata = [
+          {HD3: data['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-3"]["HD-3"], 
+          TS1: data['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-7"]["TS-1"],
+          MSH17: data['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-17"]}
+        ]
+      }
+    );
   }
 
   onGridReady(params) {

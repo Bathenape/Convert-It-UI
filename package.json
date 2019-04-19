@@ -25,8 +25,11 @@
     "ag-grid": "^18.1.2",
     "ag-grid-angular": "^20.0.0",
     "ag-grid-community": "^20.0.0",
+    "body-parser": "^1.18.3",
     "core-js": "^2.5.4",
+    "express": "^4.16.4",
     "file-saver": "^2.0.1",
+    "mongoose": "^5.5.2",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
