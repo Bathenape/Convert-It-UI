@@ -25,7 +25,8 @@ export class RecordsTableComponent implements OnInit {
     this.defaultColDef = { sortable: true }
   }
 
-  private rowdata;
+  private rowdata: any[];
+  private data;
   private dataToSave;
 
   private gridApi;
@@ -42,9 +43,17 @@ export class RecordsTableComponent implements OnInit {
     this.mongoService.getAllRecords().subscribe(
       data => {
         console.log(data);
+        this.data = data;
+        this.data.array.forEach(element => {
+          this.rowdata = [
+          {HD3: element['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-3"]["HD-3"], 
+          TS1: element['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-7"]["TS-1"],
+          MSH17: element['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-17"]}
+          ]
+        });
       }
     )
-    this.mongoService.getLocalData().subscribe(
+    /* this.mongoService.getLocalData().subscribe(
       data => {
         this.rowdata = [
           {HD3: data['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-3"]["HD-3"], 
@@ -52,7 +61,7 @@ export class RecordsTableComponent implements OnInit {
           MSH17: data['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-17"]}
         ]
       }
-    );
+    ); */
   }
 
   onGridReady(params) {
