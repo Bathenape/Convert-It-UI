@@ -63,10 +63,10 @@ export class RecordsTableComponent implements OnInit {
     var i = 0;
     this.data.array.forEach(element => {
       this.rowdata[i] = [
-      {PID8: element['message']['HL7']['source']["ORU_R01-PATIENT"]["PID"]["PID-8"], 
-      XAD6: element['message']['HL7']['source']["ORU_R01-PATIENT"]["PID"]["PID-11"]["XAD-6"],
-      XAD4: element['message']['HL7']['source']["ORU_R01-PATIENT"]["PID"]["PID-11"]["XAD-4"],
-      CE5: element['message']['HL7']['source']["ORU_R01-OBSERVATION"]["OBX"]["OBX-5"]["CE-5"]}]
+      {PID8: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-8"], 
+      XAD6: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-11"]["XAD-6"],
+      XAD4: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-11"]["XAD-4"],
+      CE5: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-OBSERVATION"]["OBX"]["OBX-5"]["CE-5"]}]
       i++;
     });
     /* this.mongoService.getLocalData().subscribe(
