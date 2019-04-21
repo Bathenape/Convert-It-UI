@@ -31,7 +31,7 @@ export class RecordsTableComponent implements OnInit {
     this.defaultColDef = { sortable: true }
   }
 
-  private rowdata: any[] = null;
+  private rowdata: any[];
   private data;
   private dataToSave;
 
@@ -55,17 +55,15 @@ export class RecordsTableComponent implements OnInit {
     this.mongoService.getAllRecords().subscribe(
       results => {
         console.log(results);
-        var i = 0;
-        while (i < 10) {
-          this.rowdata[i] = [
-            {PID8: results[i]['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-8"], 
-            XAD6: results[i]['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-11"]["XAD-6"],
-            XAD4: results[i]['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-11"]["XAD-4"],
-            CE5: results[i]['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-OBSERVATION"]["OBX"]["OBX-5"]["CE-5"]}]
-            i++;
-        }
         this.dataToSave = results;
-      }
+        this.dataToSave.array.forEach(element => {
+          this.rowdata = [
+            {PID8: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-8"], 
+            XAD6: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-11"]["XAD-6"],
+            XAD4: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-11"]["XAD-4"],
+            CE5: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-OBSERVATION"]["OBX"]["OBX-5"]["CE-5"]}] 
+        });
+        }
     );
     /* this.mongoService.getLocalData().subscribe(
       data => {
