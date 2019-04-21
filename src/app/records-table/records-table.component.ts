@@ -4,14 +4,19 @@ import { saveAs } from 'file-saver';
 import { Observable } from 'rxjs';
 import { MongoService } from '../mongo.service';
 import { hl7 } from '../models/hl7.model'
+import { QueryValueType } from '@angular/compiler/src/core';
+
+
 
 @Component({
   selector: 'app-records-table',
   templateUrl: './records-table.component.html',
   styleUrls: ['./records-table.component.css']
 })
-export class RecordsTableComponent implements OnInit {
 
+
+
+export class RecordsTableComponent implements OnInit {
   constructor(private http: HttpClient, private mongoService: MongoService) {
     this.columnDefs = [
       {headerName: "ID", width: 50,
@@ -34,24 +39,35 @@ export class RecordsTableComponent implements OnInit {
   private defaultColDef;
   private columnDefs;
 
+
   gridOptions = {
     pagination: true,
     paginationPageSize: 100
   }
 
   ngOnInit() {
+
     this.mongoService.getAllRecords().subscribe(
       data => {
         console.log(data);
         this.data = data;
-        });
-        this.data.forEach(element => {
-          this.rowdata = [
-          {HD3: element['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-3"]["HD-3"], 
-          TS1: element['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-7"]["TS-1"],
-          MSH17: element['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-17"]}
-          ]
-      }
+        if (this.data.array) {
+          this.data.array.forEach(element => {
+            this.rowdata = [
+            {HD3: element['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-3"]["HD-3"], 
+            TS1: element['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-7"]["TS-1"],
+            MSH17: element['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-17"]}
+            ]
+          });
+        }
+      });
+    
+    
+
+    
+
+    
+
     /* this.mongoService.getLocalData().subscribe(
       data => {
         this.rowdata = [
@@ -62,6 +78,10 @@ export class RecordsTableComponent implements OnInit {
       }
     ); */
   }
+
+  searchStr: string;
+  queryKey: string;
+  queryValue: string;
 
   onGridReady(params) {
     this.gridApi = params.api;
@@ -100,5 +120,49 @@ export class RecordsTableComponent implements OnInit {
     eGridDiv.style.width = "600px";
     eGridDiv.style.height = "200px"; */
     api.setDomLayout(null);
+  }
+
+  setKey(str: string): void {
+    this.queryKey = str;
+    console.log(str);
+  }
+
+  setValue(str: string): void {
+    this.queryValue = str;
+  }
+
+  private showQuery() {
+    this.columnDefs = [
+      {headername: 'Results', field: "Results", sortable: true},
+    ]
+    let params = {
+      key: this.queryKey,
+      value: this.queryValue 
+    }
+    console.log(params);
+    this.mongoService.queryRecords(params).subscribe(
+      data => {
+        this.rowdata = [
+          {Results: data}
+        ]
+      }
+    );
+  }
+
+  searchStrChange(str: string): void {
+    this.searchStr = str;
+  }
+
+  private showSearch() {
+    this.columnDefs = [
+      {headername: 'Results', field: "Results", sortable: true},
+    ]
+    this.mongoService.searchRecords(this.searchStr).subscribe(
+      data => {
+        this.rowdata = [
+          {Results: data}
+        ]
+      }
+    );
   }
 }
