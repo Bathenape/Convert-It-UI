@@ -52,10 +52,19 @@ export class RecordsTableComponent implements OnInit {
 
   ngOnInit() {
 
-    this.mongoService.getAllRecords().subscribe(
+    this.mongoService.getAllRecords().toPromise().then((response) => this.dataToSave = response);
+    this.dataToSave.array.forEach(element => {
+      this.rowdata = [
+        {PID8: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-8"], 
+        XAD6: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-11"]["XAD-6"],
+        XAD4: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-11"]["XAD-4"],
+        CE5: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-OBSERVATION"]["OBX"]["OBX-5"]["CE-5"]}] 
+    });
+
+    /* this.mongoService.getAllRecords().subscribe(
       results => {
         console.log(results);
-        this.dataToSave = results;
+        this.dataToSave = results.valueOf();
         this.dataToSave.array.forEach(element => {
           this.rowdata = [
             {PID8: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-8"], 
@@ -63,8 +72,8 @@ export class RecordsTableComponent implements OnInit {
             XAD4: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-11"]["XAD-4"],
             CE5: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-OBSERVATION"]["OBX"]["OBX-5"]["CE-5"]}] 
         });
-        }
-    );
+      }
+    ); */
     /* this.mongoService.getLocalData().subscribe(
       data => {
         this.rowdata = [
