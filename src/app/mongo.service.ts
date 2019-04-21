@@ -20,4 +20,12 @@ export class MongoService {
   public getAllRecords() {
     return this.http.get(this.url);
   }
+
+  public queryRecords(data) {
+    return this.http.post('http://localhost:8080/hl7/query', data);
+  }
+
+  public searchRecords(search: string) {
+    return this.http.post('http://localhost:8080/hl7/search', search);
+  }
 }

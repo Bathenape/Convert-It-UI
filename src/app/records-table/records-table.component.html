@@ -10,3 +10,13 @@
     </ag-grid-angular>
 <button type=button (click)="download()">download</button>
 <button type=button (click)="onPrint()">print</button>
+<form class="query-form">
+    <input type="radio" name="gender" [ngModel]='queryKey' (ngModelChange)="setKey($event)" value="message.HL7.source.ORU_R01.ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI.ORU_R01-PIDPD1NK1NTEPV1PV2.PID.PID-8"> Gender<br>
+    <input type="radio" name="city" [ngModel]='queryKey' (ngModelChange)="setKey($event)" value="message.HL7.source.ORU_R01.ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI.ORU_R01-PIDPD1NK1NTEPV1PV2.PID.PID-11.XAD-3"> City<br>
+    <input type="radio" name="gender" [ngModel]='queryKey' (ngModelChange)="setKey($event)" value="message.HL7.source.ORU_R01.ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI.ORU_R01-PIDPD1NK1NTEPV1PV2.PID.PID-11.XAD-4"> State<br>  
+    <input type="radio" name="gender" [ngModel]='queryKey' (ngModelChange)="setKey($event)" value="message.HL7.source.ORU_R01.ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI.ORU_R01-PIDPD1NK1NTEPV1PV2.PID.PID-11.XAD-6"> Country<br>  
+    <input type="text" name="search" [ngModel]='queryValue' (ngModelChange)="setValue($event)" placeholder="key"/>
+    <button class="submitbutton" type=button (click)="showQuery()">Query</button>
+</form>
+<input type="text" name="search" [ngModel]='searchStr' (ngModelChange)="searchStrChange($event)" placeholder="Search"/>
+<button type=button (click)="showSearch()">Search</button>
