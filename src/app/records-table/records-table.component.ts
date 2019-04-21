@@ -57,10 +57,10 @@ export class RecordsTableComponent implements OnInit {
       this.dataToSave = response.valueOf();
       for(var element in this.dataToSave) {
         this.rowdata = [
-          {PID8: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-8"], 
-          XAD6: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-11"]["XAD-6"],
-          XAD4: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-11"]["XAD-4"],
-          CE5: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-OBSERVATION"]["OBX"]["OBX-5"]["CE-5"]}] 
+          {PID8: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-8"], 
+          XAD6: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-11"]["XAD-6"],
+          XAD4: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-11"]["XAD-4"],
+          CE5: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["OBX"]["OBX-5"]["CE-5"]}] 
       }
     });
 
