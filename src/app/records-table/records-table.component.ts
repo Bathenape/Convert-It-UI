@@ -18,14 +18,15 @@ export class RecordsTableComponent implements OnInit {
           valueGetter: 'node.id',
           cellRenderer: 'loadingRenderer'
       },
-      {headername: 'HD-3', field: "HD3", sortable: true},
-      {headername: 'TS-1', field: "TS1", sortable: true},
-      {headername: 'MSH-17', field: "MSH17", sortable: true}
+      {headername: 'Gender', field: "PID-8", sortable: true},
+      {headername: 'Country', field: "XAD-6", sortable: true},
+      {headername: 'State', field: "XAD-4", sortable: true},
+      {headerName: 'Disease', field: "CE-5", sortable: true}
     ]
     this.defaultColDef = { sortable: true }
   }
 
-  private rowdata;
+  private rowdata: any[];
   private data;
   private dataToSave;
 
@@ -42,25 +43,21 @@ export class RecordsTableComponent implements OnInit {
   ngOnInit() {
     this.mongoService.getAllRecords().subscribe(
       data => {
-        console.log(data);
-        this.data = data;
-        });
-        this.data.forEach(element => {
-          this.rowdata = [
-          {HD3: element['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-3"]["HD-3"], 
-          TS1: element['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-7"]["TS-1"],
-          MSH17: element['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-17"]}
-          ]
+        setTimeout(function() {
+          console.log(data);
+          this.data = data;
+        }, 2000);
       }
-    /* this.mongoService.getLocalData().subscribe(
-      data => {
-        this.rowdata = [
-          {HD3: data['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-3"]["HD-3"], 
-          TS1: data['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-7"]["TS-1"],
-          MSH17: data['message']['HL7']['source']["ORU_R01"]["MSH"]["MSH-17"]}
-        ]
-      }
-    ); */
+    );
+    var i = 0;
+    this.data.array.forEach(element => {
+      this.rowdata[i] = [
+      {PID8: element['message']['HL7']['source']["ORU_R01-PATIENT"]["PID"]["PID-8"], 
+      XAD6: element['message']['HL7']['source']["ORU_R01-PATIENT"]["PID"]["PID-11"]["XAD-6"],
+      XAD4: element['message']['HL7']['source']["ORU_R01-PATIENT"]["PID"]["PID-11"]["XAD-4"],
+      CE5: element['message']['HL7']['source']["ORU_R01-OBSERVATION"]["OBX"]["OBX-5"]["CE-5"]}]
+      i++;
+    });
   }
 
   onGridReady(params) {
