@@ -1,5 +1,17 @@
 .table {
     margin: auto;
-    width: 50%;
+    width: 90%;
     padding: 10px;
+}
+
+.query-form {
+
+}
+
+.d-button {
+    float: right;
+}
+
+.p-button {
+    float: right;
 }
