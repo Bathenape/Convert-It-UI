@@ -170,4 +170,18 @@ export class RecordsTableComponent implements OnInit {
       }
     );
   }
+
+  private showSample() {
+    this.columnDefs = [
+      {headername: 'Data', field: "Data", sortable: true},
+    ]
+    this.mongoService.getOneRecord().subscribe(
+      data => {
+        console.log(data);
+        this.rowdata = [
+          {Data: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-8"]}
+        ]
+      }
+    );
+  }
 }
