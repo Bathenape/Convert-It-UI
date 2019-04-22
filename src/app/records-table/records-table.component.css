@@ -5,13 +5,52 @@
 }
 
 .query-form {
-
+    
 }
 
-.d-button {
+.rbutton {
     float: right;
+    background-color: gray;
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
 }
 
-.p-button {
-    float: right;
+.lbutton {
+    background-color: gray;
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+}
+
+.rbutton:hover, .rbutton:active, .rbutton:focus {
+    background: #0020C2;
+  }
+
+.lbutton:hover, .lbutton:active, .lbutton:focus {
+    background: #0020C2;
+}
+
+.stext {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 15%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
 }

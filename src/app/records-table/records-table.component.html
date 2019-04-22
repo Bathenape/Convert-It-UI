@@ -8,15 +8,17 @@
     [gridOptions]="gridOptions"
     (gridReady)="onGridReady($event)">
     </ag-grid-angular>
-<button class="d-button" type=button (click)="download()">download</button>
-<button class="p-button" type=button (click)="onPrint()">print</button>
+<button class="rbutton" type=button (click)="download()">download</button>
+<button class="rbutton" type=button (click)="onPrint()">print</button>
 <form class="query-form">
-    <input type="radio" name="gender" [ngModel]='queryKey' (ngModelChange)="setKey($event)" value="message.HL7.source.ORU_R01.ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI.ORU_R01-PIDPD1NK1NTEPV1PV2.PID.PID-8"> Gender<br>
-    <input type="radio" name="city" [ngModel]='queryKey' (ngModelChange)="setKey($event)" value="message.HL7.source.ORU_R01.ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI.ORU_R01-PIDPD1NK1NTEPV1PV2.PID.PID-11.XAD-3"> City<br>
-    <input type="radio" name="gender" [ngModel]='queryKey' (ngModelChange)="setKey($event)" value="message.HL7.source.ORU_R01.ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI.ORU_R01-PIDPD1NK1NTEPV1PV2.PID.PID-11.XAD-4"> State<br>  
-    <input type="radio" name="gender" [ngModel]='queryKey' (ngModelChange)="setKey($event)" value="message.HL7.source.ORU_R01.ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI.ORU_R01-PIDPD1NK1NTEPV1PV2.PID.PID-11.XAD-6"> Country<br>  
-    <input type="text" name="search" [ngModel]='queryValue' (ngModelChange)="setValue($event)" placeholder="key"/>
-    <button class="submitbutton" type=button (click)="showQuery()">Query</button>
+    <input class="rform" type="radio" name="gender" [ngModel]='queryKey' (ngModelChange)="setKey($event)" value="message.HL7.source.ORU_R01.ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI.ORU_R01-PIDPD1NK1NTEPV1PV2.PID.PID-8"> Gender<br>
+    <input class="rform" type="radio" name="city" [ngModel]='queryKey' (ngModelChange)="setKey($event)" value="message.HL7.source.ORU_R01.ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI.ORU_R01-PIDPD1NK1NTEPV1PV2.PID.PID-11.XAD-3"> City<br>
+    <input class="rform" type="radio" name="gender" [ngModel]='queryKey' (ngModelChange)="setKey($event)" value="message.HL7.source.ORU_R01.ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI.ORU_R01-PIDPD1NK1NTEPV1PV2.PID.PID-11.XAD-4"> State<br>  
+    <input class="rform" type="radio" name="gender" [ngModel]='queryKey' (ngModelChange)="setKey($event)" value="message.HL7.source.ORU_R01.ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI.ORU_R01-PIDPD1NK1NTEPV1PV2.PID.PID-11.XAD-6"> Country<br>  
+    <div class="form-submission">
+        <input class="stext" type="text" name="search" [ngModel]='queryValue' (ngModelChange)="setValue($event)" placeholder="key"/>
+        <button class="lbutton" type=button (click)="showQuery()">Query</button>
+    </div>
 </form>
-<input type="text" name="search" [ngModel]='searchStr' (ngModelChange)="searchStrChange($event)" placeholder="Search"/>
-<button type=button (click)="showSearch()">Search</button>
+<input class="stext" type="text" name="search" [ngModel]='searchStr' (ngModelChange)="searchStrChange($event)" placeholder="Search"/>
+<button type=button class="lbutton" (click)="showSearch()">Search</button>
