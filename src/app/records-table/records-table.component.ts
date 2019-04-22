@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {GridOptions} from "ag-grid";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { saveAs } from 'file-saver';
 import { Observable } from 'rxjs';
@@ -18,21 +19,21 @@ import { element } from '@angular/core/src/render3';
 
 
 export class RecordsTableComponent implements OnInit {
+  
   constructor(private http: HttpClient, private mongoService: MongoService) {
     this.columnDefs = [
       {headerName: "ID", width: 50,
           valueGetter: 'node.id',
-          cellRenderer: 'loadingRenderer'
       },
-      {headername: 'Gender', field: "PID-8", sortable: true},
-      {headername: 'Country', field: "XAD-6", sortable: true},
-      {headername: 'State', field: "XAD-4", sortable: true},
-      {headerName: 'Disease', field: "CE-5", sortable: true}
+      {headerName: 'Gender', field: "Gender", sortable: true},
+      {headerName: 'Country', field: "Country", sortable: true},
+      {headerName: 'State', field: "State", sortable: true},
+      {headerName: 'Disease', field: "Disease", sortable: true}
     ]
     this.defaultColDef = { sortable: true }
   }
 
-  private rowdata: any[];
+  private rowdata;
   private data;
   private dataToSave;
 
@@ -52,17 +53,24 @@ export class RecordsTableComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.mongoService.getAllRecords().toPromise().then((response) => {
-      this.dataToSave = response.valueOf();
-      for(var element in this.dataToSave) {
-        this.rowdata = [
-          {PID8: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-8"], 
-          XAD6: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-11"]["XAD-6"],
-          XAD4: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-11"]["XAD-4"],
-          CE5: element['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["OBX"]["OBX-5"]["CE-5"]}] 
-      }
-    });
+    let rowdata: any[] = [];
+    var j = 0;
+    for (var i = 0; i < 10; i++) {
+      this.mongoService.getAllRecords().toPromise().then(
+        data => {
+          console.log(data);
+          rowdata.push(
+              {Gender: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-8"], 
+              Country: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-11"]["XAD-6"],
+              State: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-11"]["XAD-4"],
+              Disease: "none"});
+            j++;
+            console.log(j);
+          }
+        );
+    }
+    this.rowdata = rowdata;
+    
 
     /* this.mongoService.getAllRecords().subscribe(
       results => {
@@ -160,7 +168,7 @@ export class RecordsTableComponent implements OnInit {
 
   private showSearch() {
     this.columnDefs = [
-      {headername: 'Results', field: "Results", sortable: true},
+      {headerName: 'Results', field: "Results", sortable: true},
     ]
     this.mongoService.searchRecords(this.searchStr).subscribe(
       data => {
@@ -173,13 +181,13 @@ export class RecordsTableComponent implements OnInit {
 
   private showSample() {
     this.columnDefs = [
-      {headername: 'Data', field: "Data", sortable: true},
+      {headerName: 'Data', field: "Data", sortable: true},
     ]
     this.mongoService.getOneRecord().subscribe(
       data => {
         console.log(data);
         this.rowdata = [
-          {Data: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PATIENT_RESULT"]["ORU_R01-ORDER_OBSERVATION"]["ORU_R01-PATIENT"]["PID"]["PID-8"]}
+          {Data: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-8"]}
         ]
       }
     );
