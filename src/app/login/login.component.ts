@@ -38,6 +38,6 @@ export class LoginComponent implements OnInit {
         alert("Incorrect username or password")
       } 
     })
-    //this.router.navigateByUrl('/landingpage');
+    this.router.navigateByUrl('/landingpage');
   };
 }

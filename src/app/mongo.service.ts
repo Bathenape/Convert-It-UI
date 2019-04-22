@@ -28,4 +28,8 @@ export class MongoService {
   public searchRecords(search: string) {
     return this.http.post('http://localhost:8080/hl7/search', search);
   }
+
+  public getOneRecord() {
+    return this.http.get('http://localhost:8080/hl7/get1');
+  }
 }
