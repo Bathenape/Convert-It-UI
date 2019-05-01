@@ -1,5 +1,5 @@
 <div class = table>
-    <ag-grid-angular style="width: 100%; height: 500px;"
+    <ag-grid-angular style="width: 100%; height: 300px;"
     class="ag-theme-balham my-grid"
     id="mygrid"
     [rowData]="rowdata"
@@ -16,7 +16,7 @@
     <input class="rform" type="radio" name="gender" [ngModel]='queryKey' (ngModelChange)="setKey($event)" value="message.HL7.source.ORU_R01.ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI.ORU_R01-PIDPD1NK1NTEPV1PV2.PID.PID-11.XAD-4"> State<br>  
     <input class="rform" type="radio" name="gender" [ngModel]='queryKey' (ngModelChange)="setKey($event)" value="message.HL7.source.ORU_R01.ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI.ORU_R01-PIDPD1NK1NTEPV1PV2.PID.PID-11.XAD-6"> Country<br>  
     <div class="form-submission">
-        <input class="stext" type="text" name="search" [ngModel]='queryValue' (ngModelChange)="setValue($event)" placeholder="key"/>
+        <input class="stext" type="text" name="search" [ngModel]='queryValue' (ngModelChange)="setValue($event)" placeholder="value"/>
         <button class="lbutton" type=button (click)="showQuery()">Query</button>
     </div>
 </form>
@@ -25,7 +25,5 @@
     <button type=button class="lbutton" (click)="showSearch()">Search</button>
 </div>
 <div>
-    <input class="ctext" type="text" name="search" [ngModel]='searchStr' (ngModelChange)="searchStrChange($event)" placeholder="Search"/>
-    <button class="cbutton" type=button (click)="showSearch()">Search</button>
     <button class="cbutton" type=button (click)="showSample()">Sample</button>
 </div>

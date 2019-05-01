@@ -26,16 +26,18 @@ export class RecordsTableComponent implements OnInit {
           valueGetter: 'node.id',
       },
       {headerName: 'Gender', field: "Gender", sortable: true},
-      {headerName: 'Country', field: "Country", sortable: true},
+      {headerName: 'Disease', field: "Disease", sortable: true},
+      {headerName: 'City', field: "City", sortable: true},
       {headerName: 'State', field: "State", sortable: true},
-      {headerName: 'Disease', field: "Disease", sortable: true}
+      {headerName: 'Country', field: "Country", sortable: true}
+      
     ]
     this.defaultColDef = { sortable: true }
   }
 
   private rowdata;
   private data;
-  private dataToSave;
+  private dataToSave: string;
 
   private gridApi;
   private gridColumnApi;
@@ -61,6 +63,7 @@ export class RecordsTableComponent implements OnInit {
           console.log(data);
           rowdata.push(
               {Gender: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-8"], 
+              City: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-11"]["XAD-3"],
               Country: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-11"]["XAD-6"],
               State: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-11"]["XAD-4"],
               Disease: "none"});
@@ -146,7 +149,7 @@ export class RecordsTableComponent implements OnInit {
 
   private showQuery() {
     this.columnDefs = [
-      {headername: 'Results', field: "Results", sortable: true},
+      {headerName: 'Number of Entries', field: "Number of Entries", sortable: true},
     ]
     let params = {
       key: this.queryKey,
@@ -156,7 +159,7 @@ export class RecordsTableComponent implements OnInit {
     this.mongoService.queryRecords(params).subscribe(
       data => {
         this.rowdata = [
-          {Results: data}
+          {"Number of Entries": data}
         ]
       }
     );
@@ -168,28 +171,52 @@ export class RecordsTableComponent implements OnInit {
 
   private showSearch() {
     this.columnDefs = [
-      {headerName: 'Results', field: "Results", sortable: true},
+      {headerName: 'Number of Entries', field: "Number of Entries", sortable: true},
     ]
     this.mongoService.searchRecords(this.searchStr).subscribe(
       data => {
         this.rowdata = [
-          {Results: data}
+          {"Number of Entries": data}
         ]
+        alert("Complete")
       }
     );
+    
   }
 
   private showSample() {
     this.columnDefs = [
-      {headerName: 'Data', field: "Data", sortable: true},
+      {headerName: 'Gender', field: "Gender", sortable: true},
+      {headerName: 'Disease', field: "Disease", sortable: true},
+      {headerName: 'City', field: "City", sortable: true},
+      {headerName: 'State', field: "State", sortable: true},
+      {headerName: 'Country', field: "Country", sortable: true}
     ]
-    this.mongoService.getOneRecord().subscribe(
-      data => {
-        console.log(data);
-        this.rowdata = [
-          {Data: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-8"]}
-        ]
-      }
-    );
+      this.mongoService.getOneRecord().subscribe(
+        data => {
+          this.dataToSave = data.toString();
+          try {
+            this.rowdata = [
+              {Gender: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-8"], 
+                  City: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-11"]["XAD-3"],
+                  Country: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-11"]["XAD-6"],
+                  State: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-11"]["XAD-4"],
+                  Disease: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-ORCOBRNTEOBXNTECTI"]["ORU_R01-OBXNTE"]["OBX"]["OBX-3"]["CE-2"]
+                }
+            ]
+          } catch (e) {
+            this.rowdata = [
+              {Gender: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-8"], 
+                  City: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-11"]["XAD-3"],
+                  Country: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-11"]["XAD-6"],
+                  State: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-PIDPD1NK1NTEPV1PV2"]["PID"]["PID-11"]["XAD-4"],
+                  Disease: data['message']['HL7']['source']["ORU_R01"]["ORU_R01-PIDPD1NK1NTEPV1PV2ORCOBRNTEOBXNTECTI"]["ORU_R01-ORCOBRNTEOBXNTECTI"]["0"]["ORU_R01-OBXNTE"]["0"]["OBX"]["OBX-3"]["CE-2"]
+                }
+            ]
+          }
+        }
+      );
+    
+    
   }
 }
