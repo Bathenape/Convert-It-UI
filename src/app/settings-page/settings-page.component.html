@@ -1,0 +1,8 @@
+<app-navbar></app-navbar>
+<div>
+  <form class="settings-form">
+    <input type="number" name="max" [ngModel]='maxRecords' (ngModelChange)="maxRecordsChange($event)" placeholder="Max Records Displayed"/>
+    <input type="number" name="perPage" [ngModel]='recordsPerPage'  (ngModelChange)="perPageChange($event)" placeholder="Number Of Records Per Page"/>
+    <button class="submitButton" type=button (click)="updateSettings()">Update Settings</button>
+  </form>
+</div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -25,9 +27,17 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (this.uname != null && this.pass != null) {
-      console.log('yeet');
-      this.router.navigate(['/landingpage']);
+    let data = {
+      email: this.uname,
+      password: this.pass
     }
-  }
+    this.http.post('http://localhost:8080/users/authentication', data, { headers: {'Content-Type':  'application/json'}, responseType: 'text' as 'json'}).subscribe(res => {
+      if (res == 'Get user successfully') {
+        this.router.navigateByUrl('/landingpage');
+      } else {
+        alert("Incorrect username or password")
+      } 
+    })
+    this.router.navigateByUrl('/landingpage');
+  };
 }

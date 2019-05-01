@@ -12,4 +12,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  showHelp() {
+    alert("If you are experiencing any techincal difficulties please call us at (404)-123-1234 or email us at IT@cdc.gov")
+  }
 }
