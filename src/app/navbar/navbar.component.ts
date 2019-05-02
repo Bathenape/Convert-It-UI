@@ -5,6 +5,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
+
+/**
+ * This group of files handles the navigation bar on the landing page
+ * The html file shows where all of the tabs route to using app-routing.module.ts
+ */
 export class NavbarComponent implements OnInit {
 
   constructor() { }

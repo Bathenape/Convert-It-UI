@@ -8,6 +8,11 @@ import { HttpHeaders } from '@angular/common/http';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
+/**
+ * These files handle the login screen of the UI
+ * 
+ */
 export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private http: HttpClient) { }
@@ -38,6 +43,8 @@ export class LoginComponent implements OnInit {
         alert("Incorrect username or password")
       } 
     })
+
+    // remove this line for authentication to reject the user
     this.router.navigateByUrl('/landingpage');
   };
 }

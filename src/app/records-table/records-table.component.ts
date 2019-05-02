@@ -17,7 +17,12 @@ import { element } from '@angular/core/src/render3';
 })
 
 
-
+/**
+ * This group of files handles querying and viewing records
+ * 
+ * These functions are called by input methods in the html file and make calls to mongo-service.ts
+ * 
+ */
 export class RecordsTableComponent implements OnInit {
   
   constructor(private http: HttpClient, private mongoService: MongoService) {

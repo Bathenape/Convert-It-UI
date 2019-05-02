@@ -7,6 +7,14 @@ import { RecordsTableComponent } from '../records-table/records-table.component'
   templateUrl: './settings-page.component.html',
   styleUrls: ['./settings-page.component.css']
 })
+
+/**
+ * This group of files handles the settings page
+ * 
+ * All of the settings handle resizing the table of records, but these are functionally
+ * useless since the table only needs to hold 1 record currently.
+ * 
+ */
 export class SettingsPageComponent implements OnInit {
 
   constructor(private rec: RecordsTableComponent) { }
