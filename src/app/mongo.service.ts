@@ -11,7 +11,7 @@ export class MongoService {
 
   constructor(private http: HttpClient) { }
 
-  private url = 'http://localhost:8080/hl7/get'
+  private url = 'http://localhost:8080/hl7/get1'
 
   public getLocalData() {
     return this.http.get('assets/JSONObject.json');
